@@ -19,10 +19,17 @@ import ProfileScreen from './routes/auth/profile';
 import SettingsScreen from './routes/auth/settings';
 import SignInScreen from './routes/guest/signin';
 import SignUpScreen from './routes/guest/signup';
-import {RootStackParamList, RouteName} from './routes/types';
+import {
+  RootAuthTabParamsList,
+  AuthRouteName,
+  GuestRouteName,
+  RootGuestStackParamsList,
+} from './routes/types';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootGuestStackParamsList>();
+const Tab = createMaterialBottomTabNavigator<RootAuthTabParamsList>();
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
@@ -43,32 +50,30 @@ const App = () => {
     <>
       <Suspense fallback="loading">
         <NavigationContainer>
-          <Stack.Navigator>
-            {!user ? (
-              <>
-                <Stack.Screen
-                  name={RouteName.SIGN_IN}
-                  component={SignInScreen}
-                />
-                <Stack.Screen
-                  name={RouteName.SIGN_UP}
-                  component={SignUpScreen}
-                />
-              </>
-            ) : (
-              <>
-                <Stack.Screen name={RouteName.HOME} component={HomeScreen} />
-                <Stack.Screen
-                  name={RouteName.PROFILE}
-                  component={ProfileScreen}
-                />
-                <Stack.Screen
-                  name={RouteName.SETTINGS}
-                  component={SettingsScreen}
-                />
-              </>
-            )}
-          </Stack.Navigator>
+          {!user ? (
+            <Stack.Navigator>
+              <Stack.Screen
+                name={GuestRouteName.SIGN_IN}
+                component={SignInScreen}
+              />
+              <Stack.Screen
+                name={GuestRouteName.SIGN_UP}
+                component={SignUpScreen}
+              />
+            </Stack.Navigator>
+          ) : (
+            <Tab.Navigator>
+              <Tab.Screen name={AuthRouteName.HOME} component={HomeScreen} />
+              <Tab.Screen
+                name={AuthRouteName.PROFILE}
+                component={ProfileScreen}
+              />
+              <Tab.Screen
+                name={AuthRouteName.SETTINGS}
+                component={SettingsScreen}
+              />
+            </Tab.Navigator>
+          )}
         </NavigationContainer>
       </Suspense>
     </>

@@ -1,14 +1,18 @@
-export enum RouteName {
+export enum AuthRouteName {
   HOME = 'Home',
   PROFILE = 'Profile',
-  SIGN_IN = 'Sign in',
-  SIGN_UP = 'Sign up',
   SETTINGS = 'Settings',
 }
-export type RootStackParamList = {
-  [RouteName.HOME]: undefined;
-  [RouteName.PROFILE]: {name: string};
-  [RouteName.SIGN_IN]: undefined;
-  [RouteName.SIGN_UP]: undefined;
-  [RouteName.SETTINGS]: undefined;
+export enum GuestRouteName {
+  SIGN_IN = 'SignIn',
+  SIGN_UP = 'SignUp',
+}
+export type RootAuthTabParamsList = {
+  [AuthRouteName.HOME]: undefined;
+  [AuthRouteName.PROFILE]: {name: string};
+  [AuthRouteName.SETTINGS]: undefined;
+};
+export type RootGuestStackParamsList = {
+  [GuestRouteName.SIGN_IN]: undefined;
+  [GuestRouteName.SIGN_UP]: undefined;
 };
