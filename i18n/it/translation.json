@@ -2,5 +2,7 @@
     "home": "Pagina principale",
     "title": "Titolo",
     "hello": "Ciao mondo",
-    "settings": "Impostazioni"
+    "settings": "Impostazioni",
+    "signup": "Registrati",
+    "signin": "Accedi"
 }

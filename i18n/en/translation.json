@@ -2,5 +2,7 @@
     "home": "Homepage",
     "title": "Title",
     "hello": "Hello world",
-    "settings": "Settings"
+    "settings": "Settings",
+    "signup": "Sign up",
+    "signin": "Sign in"
 }
