@@ -11,7 +11,7 @@ import 'react-native-gesture-handler';
 import './i18n/config';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import React, {Suspense} from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import HomeScreen from './routes/auth/home';
@@ -20,22 +20,54 @@ import SettingsScreen from './routes/auth/settings';
 import SignInScreen from './routes/guest/signin';
 import SignUpScreen from './routes/guest/signup';
 import {RootStackParamList, RouteName} from './routes/types';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 const Stack = createStackNavigator<RootStackParamList>();
+
 const App = () => {
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+  // Handle user state changes
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged((user) => {
+      setUser(user);
+      if (initializing) setInitializing(false);
+    });
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  if (initializing) return null;
+
   return (
     <>
       <Suspense fallback="loading">
         <NavigationContainer>
           <Stack.Navigator>
-            <Stack.Screen name={RouteName.HOME} component={HomeScreen} />
-            <Stack.Screen name={RouteName.PROFILE} component={ProfileScreen} />
-            <Stack.Screen name={RouteName.SIGN_IN} component={SignInScreen} />
-            <Stack.Screen name={RouteName.SIGN_UP} component={SignUpScreen} />
-            <Stack.Screen
-              name={RouteName.SETTINGS}
-              component={SettingsScreen}
-            />
+            {!user ? (
+              <>
+                <Stack.Screen
+                  name={RouteName.SIGN_IN}
+                  component={SignInScreen}
+                />
+                <Stack.Screen
+                  name={RouteName.SIGN_UP}
+                  component={SignUpScreen}
+                />
+              </>
+            ) : (
+              <>
+                <Stack.Screen name={RouteName.HOME} component={HomeScreen} />
+                <Stack.Screen
+                  name={RouteName.PROFILE}
+                  component={ProfileScreen}
+                />
+                <Stack.Screen
+                  name={RouteName.SETTINGS}
+                  component={SettingsScreen}
+                />
+              </>
+            )}
           </Stack.Navigator>
         </NavigationContainer>
       </Suspense>
