@@ -4,8 +4,12 @@ import {View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {GuestRouteName} from '../../types';
-import {TextInput, Button} from 'react-native-paper';
-
+import {TextInput, Button, Card} from 'react-native-paper';
+import SignInSvg from '../../../styles/undraw/sign_in.svg';
+import {
+  DEFAULT_UNDRAW_WIDTH,
+  DEFAULT_UNDRAW_HEIGHT,
+} from '../../../styles/constants';
 const SignInScreen = () => {
   const {t} = useTranslation();
   const navigation = useNavigation();
@@ -45,26 +49,38 @@ const SignInScreen = () => {
   };
   return (
     <View>
-      <Button onPress={onAnonymousButtonPress}>Anonymous</Button>
-      <TextInput
-        label="Email"
-        placeholder="email"
-        onChangeText={setEmail}
-        value={email}
-      />
-      <TextInput
-        label="Password"
-        placeholder="password"
-        onChangeText={setPassword}
-        value={password}
-        secureTextEntry={true}
-      />
-      <Button onPress={signInEmail} mode="contained">
-        {t('signin')}
-      </Button>
-      <Button onPress={() => navigation.navigate(GuestRouteName.SIGN_UP)}>
-        {t('signup')}
-      </Button>
+      <View style={{alignItems: 'center'}}>
+        <SignInSvg
+          width={DEFAULT_UNDRAW_WIDTH}
+          height={DEFAULT_UNDRAW_HEIGHT}
+        />
+      </View>
+      <Card>
+        <Card.Content>
+          <TextInput
+            label="Email"
+            placeholder="email"
+            onChangeText={setEmail}
+            value={email}
+          />
+          <TextInput
+            label="Password"
+            placeholder="password"
+            onChangeText={setPassword}
+            value={password}
+            secureTextEntry={true}
+          />
+        </Card.Content>
+        <Card.Actions>
+          <Button onPress={signInEmail} mode="contained">
+            {t('signin')}
+          </Button>
+        </Card.Actions>
+        <Button onPress={onAnonymousButtonPress}>Anonymous</Button>
+        <Button onPress={() => navigation.navigate(GuestRouteName.SIGN_UP)}>
+          {t('signup')}
+        </Button>
+      </Card>
     </View>
   );
 };
