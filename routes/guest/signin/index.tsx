@@ -1,16 +1,15 @@
-import React, {useCallback, useState} from 'react';
-import {useTranslation} from 'react-i18next';
-import {StyleSheet, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
-import {GuestRouteName} from '../../types';
-import {TextInput, Button, Card, ActivityIndicator} from 'react-native-paper';
-import SignInSvg from '../../../styles/undraw/sign_in.svg';
+import React, {useCallback, useState} from 'react';
+import {useTranslation} from 'react-i18next';
+import {Button, Card, TextInput} from 'react-native-paper';
 import {
-  DEFAULT_UNDRAW_WIDTH,
   DEFAULT_UNDRAW_HEIGHT,
-  DEFAULT_BORDER_END_RADIUS,
+  DEFAULT_UNDRAW_WIDTH,
 } from '../../../styles/constants';
+import SignInSvg from '../../../styles/undraw/sign_in.svg';
+import {GuestRouteName} from '../../types';
+import {guestStyle} from '../styles/style';
 const SignInScreen = () => {
   const {t} = useTranslation();
   const navigation = useNavigation();
@@ -50,36 +49,39 @@ const SignInScreen = () => {
   }, [email, password]);
   return (
     <>
-      <Card style={style.heroImageContainer}>
-        <Card.Content>
-          <SignInSvg
-            width={DEFAULT_UNDRAW_WIDTH}
-            height={DEFAULT_UNDRAW_HEIGHT}
-          />
-        </Card.Content>
+      <Card style={guestStyle.heroImageContainer}>
+        <SignInSvg
+          width={DEFAULT_UNDRAW_WIDTH}
+          height={DEFAULT_UNDRAW_HEIGHT}
+        />
       </Card>
-      <Card>
+      <Card style={guestStyle.signInFormContainer}>
         <Card.Content>
           <TextInput
+            style={guestStyle.signInFormInput}
             label="Email"
             placeholder="email"
             onChangeText={setEmail}
             value={email}
           />
           <TextInput
+            style={guestStyle.signInFormInput}
             label="Password"
             placeholder="password"
             onChangeText={setPassword}
             value={password}
             secureTextEntry={true}
           />
-        </Card.Content>
-        <Card.Actions>
-          <Button onPress={signInEmail} mode="contained">
+          <Button
+            style={guestStyle.signInFormInput}
+            onPress={signInEmail}
+            mode="contained">
             {t('signin')}
           </Button>
-        </Card.Actions>
-        <Button onPress={onAnonymousButtonPress}>Anonymous</Button>
+        </Card.Content>
+      </Card>
+      <Card style={guestStyle.signInFormContainer}>
+        <Button onPress={onAnonymousButtonPress}>Anonymous log in</Button>
         <Button onPress={() => navigation.navigate(GuestRouteName.SIGN_UP)}>
           {t('signup')}
         </Button>
@@ -87,14 +89,5 @@ const SignInScreen = () => {
     </>
   );
 };
-
-const style = StyleSheet.create({
-  heroImageContainer: {
-    alignItems: 'center',
-    borderBottomEndRadius: DEFAULT_BORDER_END_RADIUS,
-    borderBottomStartRadius: DEFAULT_BORDER_END_RADIUS,
-    marginBottom: '2%',
-  },
-});
 
 export default SignInScreen;
