@@ -1,21 +1,22 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import {GuestRouteName} from '../../types';
-import {TextInput, Button, Card} from 'react-native-paper';
+import {TextInput, Button, Card, ActivityIndicator} from 'react-native-paper';
 import SignInSvg from '../../../styles/undraw/sign_in.svg';
 import {
   DEFAULT_UNDRAW_WIDTH,
   DEFAULT_UNDRAW_HEIGHT,
+  DEFAULT_BORDER_END_RADIUS,
 } from '../../../styles/constants';
 const SignInScreen = () => {
   const {t} = useTranslation();
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const onAnonymousButtonPress = async () => {
+  const onAnonymousButtonPress = useCallback(async () => {
     auth()
       .signInAnonymously()
       .then(() => {
@@ -28,8 +29,8 @@ const SignInScreen = () => {
 
         console.error(error);
       });
-  };
-  const signInEmail = () => {
+  }, []);
+  const signInEmail = useCallback(() => {
     auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => {
@@ -46,15 +47,17 @@ const SignInScreen = () => {
 
         console.error(error);
       });
-  };
+  }, [email, password]);
   return (
-    <View>
-      <View style={{alignItems: 'center'}}>
-        <SignInSvg
-          width={DEFAULT_UNDRAW_WIDTH}
-          height={DEFAULT_UNDRAW_HEIGHT}
-        />
-      </View>
+    <>
+      <Card style={style.heroImageContainer}>
+        <Card.Content>
+          <SignInSvg
+            width={DEFAULT_UNDRAW_WIDTH}
+            height={DEFAULT_UNDRAW_HEIGHT}
+          />
+        </Card.Content>
+      </Card>
       <Card>
         <Card.Content>
           <TextInput
@@ -81,8 +84,17 @@ const SignInScreen = () => {
           {t('signup')}
         </Button>
       </Card>
-    </View>
+    </>
   );
 };
+
+const style = StyleSheet.create({
+  heroImageContainer: {
+    alignItems: 'center',
+    borderBottomEndRadius: DEFAULT_BORDER_END_RADIUS,
+    borderBottomStartRadius: DEFAULT_BORDER_END_RADIUS,
+    marginBottom: '2%',
+  },
+});
 
 export default SignInScreen;

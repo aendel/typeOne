@@ -11,7 +11,7 @@ import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Suspense, useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
-import {Provider as PaperProvider} from 'react-native-paper';
+import {ActivityIndicator, Provider as PaperProvider} from 'react-native-paper';
 import {PreferencesContext} from './components/contexts/preferencesContext';
 import AuthBottomTabNavigator from './components/navigations/auth/bottomTabNavigator';
 import GuestStackNavigator from './components/navigations/guest/stackNavigator';
@@ -51,7 +51,7 @@ const App = () => {
 
   return (
     <>
-      <Suspense fallback="loading">
+      <Suspense fallback={<ActivityIndicator animating={true} />}>
         <PreferencesContext.Provider value={preferences}>
           <PaperProvider theme={myTheme}>
             <NavigationContainer theme={myTheme}>
