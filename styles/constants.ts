@@ -1,0 +1,1 @@
+export const DEFAULT_BOTTOM_TAB_ICON_SIZE = 26;

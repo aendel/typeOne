@@ -7,30 +7,16 @@
  *
  * @format
  */
-import 'react-native-gesture-handler';
-import './i18n/config';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import React, {Suspense, useEffect, useState} from 'react';
-import HomeScreen from './routes/auth/home';
-import ProfileScreen from './routes/auth/profile';
-import SettingsScreen from './routes/auth/settings';
-import SignInScreen from './routes/guest/signin';
-import SignUpScreen from './routes/guest/signup';
-import {
-  RootAuthTabParamsList,
-  AuthRouteName,
-  GuestRouteName,
-  RootGuestStackParamsList,
-} from './routes/types';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
-import {CombinedDarkTheme, CombinedDefaultTheme} from './styles/theme';
+import {NavigationContainer} from '@react-navigation/native';
+import React, {Suspense, useEffect, useState} from 'react';
+import 'react-native-gesture-handler';
 import {Provider as PaperProvider} from 'react-native-paper';
 import {PreferencesContext} from './components/contexts/preferencesContext';
-
-const Stack = createStackNavigator<RootGuestStackParamsList>();
-const Tab = createMaterialBottomTabNavigator<RootAuthTabParamsList>();
+import AuthBottomTabNavigator from './components/navigations/auth/bottomTabNavigator';
+import GuestStackNavigator from './components/navigations/guest/stackNavigator';
+import './i18n/config';
+import {CombinedDarkTheme, CombinedDefaultTheme} from './styles/theme';
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
@@ -69,33 +55,7 @@ const App = () => {
         <PreferencesContext.Provider value={preferences}>
           <PaperProvider theme={myTheme}>
             <NavigationContainer theme={myTheme}>
-              {!user ? (
-                <Stack.Navigator>
-                  <Stack.Screen
-                    name={GuestRouteName.SIGN_IN}
-                    component={SignInScreen}
-                  />
-                  <Stack.Screen
-                    name={GuestRouteName.SIGN_UP}
-                    component={SignUpScreen}
-                  />
-                </Stack.Navigator>
-              ) : (
-                <Tab.Navigator>
-                  <Tab.Screen
-                    name={AuthRouteName.HOME}
-                    component={HomeScreen}
-                  />
-                  <Tab.Screen
-                    name={AuthRouteName.PROFILE}
-                    component={ProfileScreen}
-                  />
-                  <Tab.Screen
-                    name={AuthRouteName.SETTINGS}
-                    component={SettingsScreen}
-                  />
-                </Tab.Navigator>
-              )}
+              {!user ? <GuestStackNavigator /> : <AuthBottomTabNavigator />}
             </NavigationContainer>
           </PaperProvider>
         </PreferencesContext.Provider>
