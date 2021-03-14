@@ -1,6 +1,6 @@
 import React from 'react';
 import {useRoute} from '@react-navigation/native';
-import {Text} from 'react-native';
+import {Text} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 
 const ProfileScreen = () => {

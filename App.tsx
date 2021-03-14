@@ -12,8 +12,6 @@ import './i18n/config';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {Suspense, useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import HomeScreen from './routes/auth/home';
 import ProfileScreen from './routes/auth/profile';
 import SettingsScreen from './routes/auth/settings';
@@ -27,6 +25,9 @@ import {
 } from './routes/types';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {CombinedDarkTheme, CombinedDefaultTheme} from './styles/theme';
+import {Provider as PaperProvider} from 'react-native-paper';
+import {PreferencesContext} from './components/contexts/preferencesContext';
 
 const Stack = createStackNavigator<RootGuestStackParamsList>();
 const Tab = createMaterialBottomTabNavigator<RootAuthTabParamsList>();
@@ -34,6 +35,22 @@ const Tab = createMaterialBottomTabNavigator<RootAuthTabParamsList>();
 const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+  const [isThemeDark, setIsThemeDark] = React.useState(false);
+
+  const myTheme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
+
+  const toggleTheme = React.useCallback(() => {
+    return setIsThemeDark(!isThemeDark);
+  }, [isThemeDark]);
+
+  const preferences = React.useMemo(
+    () => ({
+      toggleTheme,
+      isThemeDark,
+    }),
+    [toggleTheme, isThemeDark],
+  );
 
   // Handle user state changes
   useEffect(() => {
@@ -49,74 +66,42 @@ const App = () => {
   return (
     <>
       <Suspense fallback="loading">
-        <NavigationContainer>
-          {!user ? (
-            <Stack.Navigator>
-              <Stack.Screen
-                name={GuestRouteName.SIGN_IN}
-                component={SignInScreen}
-              />
-              <Stack.Screen
-                name={GuestRouteName.SIGN_UP}
-                component={SignUpScreen}
-              />
-            </Stack.Navigator>
-          ) : (
-            <Tab.Navigator>
-              <Tab.Screen name={AuthRouteName.HOME} component={HomeScreen} />
-              <Tab.Screen
-                name={AuthRouteName.PROFILE}
-                component={ProfileScreen}
-              />
-              <Tab.Screen
-                name={AuthRouteName.SETTINGS}
-                component={SettingsScreen}
-              />
-            </Tab.Navigator>
-          )}
-        </NavigationContainer>
+        <PreferencesContext.Provider value={preferences}>
+          <PaperProvider theme={myTheme}>
+            <NavigationContainer theme={myTheme}>
+              {!user ? (
+                <Stack.Navigator>
+                  <Stack.Screen
+                    name={GuestRouteName.SIGN_IN}
+                    component={SignInScreen}
+                  />
+                  <Stack.Screen
+                    name={GuestRouteName.SIGN_UP}
+                    component={SignUpScreen}
+                  />
+                </Stack.Navigator>
+              ) : (
+                <Tab.Navigator>
+                  <Tab.Screen
+                    name={AuthRouteName.HOME}
+                    component={HomeScreen}
+                  />
+                  <Tab.Screen
+                    name={AuthRouteName.PROFILE}
+                    component={ProfileScreen}
+                  />
+                  <Tab.Screen
+                    name={AuthRouteName.SETTINGS}
+                    component={SettingsScreen}
+                  />
+                </Tab.Navigator>
+              )}
+            </NavigationContainer>
+          </PaperProvider>
+        </PreferencesContext.Provider>
       </Suspense>
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
 
 export default App;

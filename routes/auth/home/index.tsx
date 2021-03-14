@@ -1,6 +1,6 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Button} from 'react-native';
+import {Button} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
 import auth from '@react-native-firebase/auth';
 
@@ -19,13 +19,12 @@ const HomeScreen = () => {
   };
   return (
     <>
-      <Button
-        title="Go to Jane's profile"
-        onPress={() => navigation.navigate('Profile', {name: 'Jane'})}
-      />
-      <Button title="en" onPress={() => changeLanguage('en')} />
-      <Button title="it" onPress={() => changeLanguage('it')} />
-      <Button title="signout" onPress={signOut} />
+      <Button onPress={() => navigation.navigate('Profile', {name: 'Jane'})}>
+        Go to Jane's profile
+      </Button>
+      <Button onPress={() => changeLanguage('en')}>en</Button>
+      <Button onPress={() => changeLanguage('it')}>it</Button>
+      <Button onPress={signOut}>signout</Button>
     </>
   );
 };
