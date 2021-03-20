@@ -2,6 +2,7 @@ import {
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
+import {StyleSheet} from 'react-native';
 
 import {
   DarkTheme as PaperDarkTheme,
@@ -25,3 +26,12 @@ export const CombinedDarkTheme = {
     ...NavigationDarkTheme.colors,
   },
 };
+
+export const ViewPageStyle = StyleSheet.create({
+  body: {
+    flex: 1,
+    justifyContent: 'space-between',
+    marginHorizontal: 10,
+    marginVertical: 5,
+  },
+});

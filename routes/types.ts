@@ -2,6 +2,7 @@ export enum AuthRouteName {
   HOME = 'home',
   PROFILE = 'profile',
   SETTINGS = 'settings',
+  GLUCOSE_FORM = 'glucoseForm',
 }
 export enum GuestRouteName {
   SIGN_IN = 'signin',
