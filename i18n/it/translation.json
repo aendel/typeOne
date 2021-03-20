@@ -4,5 +4,6 @@
     "hello": "Ciao mondo",
     "settings": "Impostazioni",
     "signup": "Registrati",
-    "signin": "Accedi"
+    "signin": "Accedi",
+    "signout": "Esci"
 }
