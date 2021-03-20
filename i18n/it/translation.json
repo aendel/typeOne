@@ -6,5 +6,7 @@
     "signup": "Registrati",
     "signin": "Accedi",
     "signout": "Esci",
-    "profile": "Profilo"
+    "profile": "Profilo",
+    "glucose": "Glicemia",
+    "glucoseForm": "Aggiungi Misurazione Glicemia"
 }

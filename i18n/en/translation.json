@@ -6,5 +6,7 @@
     "signup": "Sign up",
     "signin": "Sign in",
     "signout": "Sign out",
-    "profile": "Profile"
+    "profile": "Profile",
+    "glucose": "Glucose",
+    "glucoseForm": "Add Glucose Measure"
 }
