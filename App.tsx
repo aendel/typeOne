@@ -55,7 +55,7 @@ const App = () => {
         <PreferencesContext.Provider value={preferences}>
           <PaperProvider theme={myTheme}>
             <NavigationContainer theme={myTheme}>
-              {!user ? <GuestStackNavigator /> : <AuthBottomTabNavigator />}
+              {user ? <AuthBottomTabNavigator /> : <GuestStackNavigator /> }
             </NavigationContainer>
           </PaperProvider>
         </PreferencesContext.Provider>
