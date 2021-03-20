@@ -1,5 +1,6 @@
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import React from 'react';
+import {useTranslation} from 'react-i18next';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from '../../../routes/auth/home';
 import ProfileScreen from '../../../routes/auth/profile';
@@ -10,10 +11,11 @@ import {DEFAULT_BOTTOM_TAB_ICON_SIZE} from '../../../styles/constants';
 const Tab = createMaterialBottomTabNavigator<RootAuthTabParamsList>();
 
 export const AuthBottomTabNavigator = () => {
+  const {t} = useTranslation();
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name={AuthRouteName.HOME}
+        name={t(AuthRouteName.HOME)}
         component={HomeScreen}
         options={{
           tabBarIcon: ({color}) => (
@@ -26,7 +28,7 @@ export const AuthBottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={AuthRouteName.PROFILE}
+        name={t(AuthRouteName.PROFILE)}
         component={ProfileScreen}
         options={{
           tabBarIcon: ({color}) => (
@@ -39,7 +41,7 @@ export const AuthBottomTabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name={AuthRouteName.SETTINGS}
+        name={t(AuthRouteName.SETTINGS)}
         component={SettingsScreen}
         options={{
           tabBarIcon: ({color}) => (

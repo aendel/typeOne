@@ -1,11 +1,11 @@
 export enum AuthRouteName {
-  HOME = 'Home',
-  PROFILE = 'Profile',
-  SETTINGS = 'Settings',
+  HOME = 'home',
+  PROFILE = 'profile',
+  SETTINGS = 'settings',
 }
 export enum GuestRouteName {
-  SIGN_IN = 'SignIn',
-  SIGN_UP = 'SignUp',
+  SIGN_IN = 'signin',
+  SIGN_UP = 'signup',
 }
 export type RootAuthTabParamsList = {
   [AuthRouteName.HOME]: undefined;
