@@ -13,7 +13,7 @@ import React, {Suspense, useEffect, useState} from 'react';
 import 'react-native-gesture-handler';
 import {ActivityIndicator, Provider as PaperProvider} from 'react-native-paper';
 import {PreferencesContext} from './components/contexts/preferencesContext';
-import AuthBottomTabNavigator from './components/navigations/auth/bottomTabNavigator';
+import AuthNavigator from './components/navigations/auth/authNavigator';
 import GuestStackNavigator from './components/navigations/guest/stackNavigator';
 import './i18n/config';
 import {CombinedDarkTheme, CombinedDefaultTheme} from './styles/theme';
@@ -22,7 +22,7 @@ const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
-  const [isThemeDark, setIsThemeDark] = React.useState(false);
+  const [isThemeDark, setIsThemeDark] = useState(false);
 
   const myTheme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
 
@@ -34,6 +34,7 @@ const App = () => {
     () => ({
       toggleTheme,
       isThemeDark,
+      theme: myTheme,
     }),
     [toggleTheme, isThemeDark],
   );
@@ -55,7 +56,7 @@ const App = () => {
         <PreferencesContext.Provider value={preferences}>
           <PaperProvider theme={myTheme}>
             <NavigationContainer theme={myTheme}>
-              {user ? <AuthBottomTabNavigator /> : <GuestStackNavigator /> }
+              {user ? <AuthNavigator /> : <GuestStackNavigator />}
             </NavigationContainer>
           </PaperProvider>
         </PreferencesContext.Provider>
