@@ -8,13 +8,10 @@ import {AuthRouteName} from '../../types';
 import {ViewPageStyle} from '../../../styles/theme';
 
 const HomeScreen = () => {
-  const {t, i18n} = useTranslation();
+  const {t} = useTranslation();
 
   const navigation = useNavigation();
 
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
   const signOut = () => {
     auth()
       .signOut()
@@ -32,8 +29,6 @@ const HomeScreen = () => {
       <Button onPress={() => navigation.navigate(AuthRouteName.GLUCOSE_FORM)}>
         Glucose {auth().currentUser?.uid}
       </Button>
-      <Button onPress={() => changeLanguage('en')}>en</Button>
-      <Button onPress={() => changeLanguage('it')}>it</Button>
       <Button onPress={signOut}>{t('signout')}</Button>
     </View>
   );

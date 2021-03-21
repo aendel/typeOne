@@ -30,7 +30,7 @@ export const CombinedDarkTheme = {
 export const ViewPageStyle = StyleSheet.create({
   body: {
     flex: 1,
-    justifyContent: 'space-between',
+    // justifyContent: 'space-between',
     marginHorizontal: 10,
     marginVertical: 5,
   },
