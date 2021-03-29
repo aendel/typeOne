@@ -7,13 +7,13 @@
  *
  * @format
  */
+import 'react-native-gesture-handler';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Suspense, useEffect, useState} from 'react';
-import 'react-native-gesture-handler';
 import {ActivityIndicator, Provider as PaperProvider} from 'react-native-paper';
 import {PreferencesContext} from './components/contexts/preferencesContext';
-import AuthNavigator from './components/navigations/auth/authNavigator';
+import AuthStackNavigator from './components/navigations/auth/authStackNavigator';
 import GuestStackNavigator from './components/navigations/guest/stackNavigator';
 import './i18n/config';
 import {CombinedDarkTheme, CombinedDefaultTheme} from './styles/theme';
@@ -56,7 +56,7 @@ const App = () => {
         <PreferencesContext.Provider value={preferences}>
           <PaperProvider theme={myTheme}>
             <NavigationContainer theme={myTheme}>
-              {user ? <AuthNavigator /> : <GuestStackNavigator />}
+              {user ? <AuthStackNavigator /> : <GuestStackNavigator />}
             </NavigationContainer>
           </PaperProvider>
         </PreferencesContext.Provider>
