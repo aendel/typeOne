@@ -8,5 +8,8 @@
     "signout": "Esci",
     "profile": "Profilo",
     "glucose": "Glicemia",
-    "glucoseForm": "Aggiungi Misurazione Glicemia"
+    "glucoseForm": "Aggiungi Misurazione Glicemia",
+    "theme": "Tema",
+    "darkTheme": "Tema Scuro",
+    "languages": "Lingua"
 }

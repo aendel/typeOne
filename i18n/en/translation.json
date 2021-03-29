@@ -8,5 +8,8 @@
     "signout": "Sign out",
     "profile": "Profile",
     "glucose": "Glucose",
-    "glucoseForm": "Add Glucose Measure"
+    "glucoseForm": "Add Glucose Measure",
+    "theme": "Theme",
+    "darkTheme": "Dark Theme",
+    "languages": "Languages"
 }
