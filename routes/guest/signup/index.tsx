@@ -1,45 +1,35 @@
-import auth from '@react-native-firebase/auth';
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {TextInput, Button, Card} from 'react-native-paper';
-import {
-  DEFAULT_UNDRAW_HEIGHT,
-  DEFAULT_UNDRAW_WIDTH,
-} from '../../../styles/constants';
 import {guestStyle} from '../styles/style';
 import SubscriberSvg from '../../../styles/undraw/subscriber.svg';
+import {createUser} from '../../../infrastructure/auth';
+import HeroCard from '../../../components/cards/HeroCard';
 
 const SignUpScreen = () => {
   const {t} = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const createUser = () => {
-    auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('User account created & signed in!');
-      })
-      .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
 
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
+  const onPressCreateUser = useCallback(async () => {
+    try {
+      await createUser(email, password);
+      console.log('created user');
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        console.log('That email address is already in use!');
+      }
 
-        console.error(error);
-      });
-  };
+      if (error.code === 'auth/invalid-email') {
+        console.log('That email address is invalid!');
+      }
 
+      console.error(error);
+    }
+  }, [email, password]);
   return (
     <>
-      <Card style={guestStyle.heroImageContainer}>
-        <SubscriberSvg
-          width={DEFAULT_UNDRAW_WIDTH}
-          height={DEFAULT_UNDRAW_HEIGHT}
-        />
-      </Card>
+      <HeroCard svgImage={SubscriberSvg} />
       <Card style={guestStyle.signInFormContainer}>
         <Card.Content>
           <TextInput
@@ -59,7 +49,7 @@ const SignUpScreen = () => {
           />
           <Button
             style={guestStyle.signInFormInput}
-            onPress={createUser}
+            onPress={onPressCreateUser}
             mode="contained">
             {t('signup')}
           </Button>

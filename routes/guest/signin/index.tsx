@@ -1,12 +1,9 @@
-import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Button, Card, TextInput} from 'react-native-paper';
-import {
-  DEFAULT_UNDRAW_HEIGHT,
-  DEFAULT_UNDRAW_WIDTH,
-} from '../../../styles/constants';
+import HeroCard from '../../../components/cards/HeroCard';
+import {signInAnonymously, signInEmail} from '../../../infrastructure/auth';
 import SignInSvg from '../../../styles/undraw/sign_in.svg';
 import {GuestRouteName} from '../../types';
 import {guestStyle} from '../styles/style';
@@ -15,46 +12,36 @@ const SignInScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const onAnonymousButtonPress = useCallback(async () => {
-    auth()
-      .signInAnonymously()
-      .then(() => {
-        console.log('User signed in anonymously');
-      })
-      .catch((error) => {
-        if (error.code === 'auth/operation-not-allowed') {
-          console.log('Enable anonymous in your firebase console.');
-        }
-
-        console.error(error);
-      });
+  const onPressSignInAnonymously = useCallback(async () => {
+    try {
+      await signInAnonymously();
+      console.log('User signed in anonymously');
+    } catch (error) {
+      if (error.code === 'auth/operation-not-allowed') {
+        console.log('Enable anonymous in your firebase console.');
+      }
+      console.error(error);
+    }
   }, []);
-  const signInEmail = useCallback(() => {
-    auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log('User account created & signed in!');
-      })
-      .catch((error) => {
-        if (error.code === 'auth/email-already-in-use') {
-          console.log('That email address is already in use!');
-        }
+  const onPressSignInEmail = useCallback(async () => {
+    try {
+      await signInEmail(email, password);
+      console.log('User account created & signed in!');
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        console.log('That email address is already in use!');
+      }
 
-        if (error.code === 'auth/invalid-email') {
-          console.log('That email address is invalid!');
-        }
+      if (error.code === 'auth/invalid-email') {
+        console.log('That email address is invalid!');
+      }
 
-        console.error(error);
-      });
+      console.error(error);
+    }
   }, [email, password]);
   return (
     <>
-      <Card style={guestStyle.heroImageContainer}>
-        <SignInSvg
-          width={DEFAULT_UNDRAW_WIDTH}
-          height={DEFAULT_UNDRAW_HEIGHT}
-        />
-      </Card>
+      <HeroCard svgImage={SignInSvg} />
       <Card style={guestStyle.signInFormContainer}>
         <Card.Content>
           <TextInput
@@ -74,14 +61,14 @@ const SignInScreen = () => {
           />
           <Button
             style={guestStyle.signInFormInput}
-            onPress={signInEmail}
+            onPress={onPressSignInEmail}
             mode="contained">
             {t('signin')}
           </Button>
         </Card.Content>
       </Card>
       <Card style={guestStyle.signInFormContainer}>
-        <Button onPress={onAnonymousButtonPress}>Anonymous log in</Button>
+        <Button onPress={onPressSignInAnonymously}>Anonymous log in</Button>
         <Button onPress={() => navigation.navigate(GuestRouteName.SIGN_UP)}>
           {t('signup')}
         </Button>
