@@ -1,36 +1,23 @@
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Button, Title} from 'react-native-paper';
+import {Button} from 'react-native-paper';
 import {useTranslation} from 'react-i18next';
-import auth from '@react-native-firebase/auth';
-import {View} from 'react-native';
 import {AuthRouteName} from '../../types';
-import {ViewPageStyle} from '../../../styles/theme';
+import ViewPage from '../../../components/page/ViewPage';
+import {authCurrentUser, signOut} from '../../../infrastructure/auth';
 
 const HomeScreen = () => {
   const {t} = useTranslation();
-
   const navigation = useNavigation();
-
-  const signOut = () => {
-    auth()
-      .signOut()
-      .then(() => console.log('User signed out!'));
-  };
+  const onPressProfile = () =>
+    navigation.navigate(AuthRouteName.PROFILE, {name: 'Jane'});
+  const onPressGlucose = () => navigation.navigate(AuthRouteName.GLUCOSE_FORM);
   return (
-    <View style={ViewPageStyle.body}>
-      <Title>{t(AuthRouteName.HOME)}</Title>
-      <Button
-        onPress={() =>
-          navigation.navigate(AuthRouteName.PROFILE, {name: 'Jane'})
-        }>
-        {auth().currentUser?.uid}
-      </Button>
-      <Button onPress={() => navigation.navigate(AuthRouteName.GLUCOSE_FORM)}>
-        Glucose {auth().currentUser?.uid}
-      </Button>
+    <ViewPage title={t(AuthRouteName.HOME)}>
+      <Button onPress={onPressProfile}>{authCurrentUser()?.uid}</Button>
+      <Button onPress={onPressGlucose}>Glucose {authCurrentUser()?.uid}</Button>
       <Button onPress={signOut}>{t('signout')}</Button>
-    </View>
+    </ViewPage>
   );
 };
 

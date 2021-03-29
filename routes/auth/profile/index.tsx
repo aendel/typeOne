@@ -1,9 +1,8 @@
-import React from 'react';
 import {useRoute} from '@react-navigation/native';
-import {Paragraph, Title} from 'react-native-paper';
+import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {View} from 'react-native';
-import {ViewPageStyle} from '../../../styles/theme';
+import {Paragraph} from 'react-native-paper';
+import ViewPage from '../../../components/page/ViewPage';
 import {AuthRouteName} from '../../types';
 
 const ProfileScreen = () => {
@@ -12,10 +11,9 @@ const ProfileScreen = () => {
   const {t} = useTranslation();
 
   return (
-    <View style={ViewPageStyle.body}>
-      <Title>{t(AuthRouteName.PROFILE)}</Title>
+    <ViewPage title={t(AuthRouteName.PROFILE)}>
       <Paragraph>{t('title')}</Paragraph>
-    </View>
+    </ViewPage>
   );
 };
 

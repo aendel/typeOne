@@ -1,9 +1,8 @@
 import React from 'react';
 import {useTranslation} from 'react-i18next';
-import {View} from 'react-native';
-import {Button, List, Text, Title} from 'react-native-paper';
+import {List} from 'react-native-paper';
 import {PreferencesContext} from '../../../components/contexts/preferencesContext';
-import {ViewPageStyle} from '../../../styles/theme';
+import ViewPage from '../../../components/page/ViewPage';
 import {AuthRouteName} from '../../types';
 
 const SettingScreen = () => {
@@ -13,16 +12,15 @@ const SettingScreen = () => {
   };
   const {toggleTheme} = React.useContext(PreferencesContext);
   return (
-    <View style={ViewPageStyle.body}>
-      <Title>{t(AuthRouteName.SETTINGS)}</Title>
+    <ViewPage title={t(AuthRouteName.SETTINGS)}>
       <List.Section>
-        <List.Subheader>Theme</List.Subheader>
-        <List.Item onPress={toggleTheme} title="Dark theme" />
-        <List.Subheader>Language</List.Subheader>
+        <List.Subheader>{t('theme')}</List.Subheader>
+        <List.Item onPress={toggleTheme} title={t('darkTheme')} />
+        <List.Subheader>{t('languages')}</List.Subheader>
         <List.Item onPress={() => changeLanguage('en')} title="EN" />
         <List.Item onPress={() => changeLanguage('it')} title="IT" />
       </List.Section>
-    </View>
+    </ViewPage>
   );
 };
 
