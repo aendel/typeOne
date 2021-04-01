@@ -4,10 +4,10 @@ import {DEFAULT_BORDER_END_RADIUS} from '../../../styles/constants';
 export const guestStyle = StyleSheet.create({
   heroImageContainer: {
     alignItems: 'center',
-    borderBottomEndRadius: DEFAULT_BORDER_END_RADIUS,
-    borderBottomStartRadius: DEFAULT_BORDER_END_RADIUS,
+    borderRadius: DEFAULT_BORDER_END_RADIUS,
     marginBottom: 10,
     elevation: 12,
+    backgroundColor: 'transparent',
   },
   signInFormContainer: {
     padding: 8,
