@@ -5,9 +5,10 @@ export const guestStyle = StyleSheet.create({
   heroImageContainer: {
     alignItems: 'center',
     borderRadius: DEFAULT_BORDER_END_RADIUS,
-    marginBottom: 10,
-    elevation: 12,
-    backgroundColor: 'transparent',
+    marginVertical: 10,
+    marginHorizontal: 20,
+    backgroundColor:
+      'linear-gradient(79deg, rgba(59,89,152,1) 0%, rgba(59,89,152,1) 25%, rgba(25,47,106,1) 100%) ',
   },
   signInFormContainer: {
     padding: 8,

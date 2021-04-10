@@ -6,7 +6,6 @@ import {
   DEFAULT_UNDRAW_HEIGHT,
   DEFAULT_UNDRAW_WIDTH,
 } from '../../styles/constants';
-import LinearGradient from 'react-native-linear-gradient';
 
 interface IHeroCardProps {
   svgImage: React.FC<SvgProps>;
@@ -20,14 +19,9 @@ const svgProps: React.PropsWithChildren<SvgProps> = {
 const HeroCard: React.FC<IHeroCardProps> = (props) => {
   const {svgImage} = props;
   return (
-    <LinearGradient
-      start={{x: 0, y: 0}}
-      end={{x: 1, y: 0}}
-      colors={['#4c669f', '#3b5998', '#192f6a']}>
-      <Card style={guestStyle.heroImageContainer}>
-        <Card.Content>{svgImage(svgProps)}</Card.Content>
-      </Card>
-    </LinearGradient>
+    <Card style={guestStyle.heroImageContainer}>
+      <Card.Content>{svgImage(svgProps)}</Card.Content>
+    </Card>
   );
 };
 
