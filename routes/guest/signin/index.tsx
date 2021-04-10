@@ -43,17 +43,17 @@ const SignInScreen = () => {
   return (
     <SafeScrollWithInputPage>
       <HeroCard svgImage={SignInSvg} />
-      <Card style={guestStyle.signInFormContainer}>
+      <Card style={guestStyle.signFormContainer}>
         <Card.Content>
           <TextInput
-            style={guestStyle.signInFormInput}
+            style={guestStyle.signFormInput}
             label="Email"
             placeholder="email"
             onChangeText={setEmail}
             value={email}
           />
           <TextInput
-            style={guestStyle.signInFormInput}
+            style={guestStyle.signFormInput}
             label="Password"
             placeholder="password"
             onChangeText={setPassword}
@@ -61,14 +61,14 @@ const SignInScreen = () => {
             secureTextEntry={true}
           />
           <Button
-            style={guestStyle.signInFormInput}
+            style={guestStyle.signFormInput}
             onPress={onPressSignInEmail}
             mode="contained">
             {t('signin')}
           </Button>
         </Card.Content>
       </Card>
-      <Card style={guestStyle.signInFormContainer}>
+      <Card style={guestStyle.signFormContainer}>
         <Button onPress={onPressSignInAnonymously}>Anonymous log in</Button>
         <Button onPress={() => navigation.navigate(GuestRouteName.SIGN_UP)}>
           {t('signup')}

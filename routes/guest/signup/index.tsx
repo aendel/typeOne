@@ -31,17 +31,17 @@ const SignUpScreen = () => {
   return (
     <SafeScrollWithInputPage>
       <HeroCard svgImage={SubscriberSvg} />
-      <Card style={guestStyle.signInFormContainer}>
+      <Card style={guestStyle.signFormContainer}>
         <Card.Content>
           <TextInput
-            style={guestStyle.signInFormInput}
+            style={guestStyle.signFormInput}
             label="Email"
             placeholder="email"
             onChangeText={setEmail}
             value={email}
           />
           <TextInput
-            style={guestStyle.signInFormInput}
+            style={guestStyle.signFormInput}
             label="Password"
             placeholder="password"
             onChangeText={setPassword}
@@ -49,7 +49,7 @@ const SignUpScreen = () => {
             secureTextEntry={true}
           />
           <Button
-            style={guestStyle.signInFormInput}
+            style={guestStyle.signFormInput}
             onPress={onPressCreateUser}
             mode="contained">
             {t('signup')}

@@ -10,13 +10,13 @@ export const guestStyle = StyleSheet.create({
     backgroundColor:
       'linear-gradient(79deg, rgba(59,89,152,1) 0%, rgba(59,89,152,1) 25%, rgba(25,47,106,1) 100%) ',
   },
-  signInFormContainer: {
+  signFormContainer: {
     padding: 8,
     marginHorizontal: 20,
     marginVertical: 10,
     elevation: 8,
   },
-  signInFormInput: {
+  signFormInput: {
     marginVertical: 5,
   },
 });
