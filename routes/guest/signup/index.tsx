@@ -5,6 +5,7 @@ import {guestStyle} from '../styles/style';
 import SubscriberSvg from '../../../styles/undraw/subscriber.svg';
 import {createUser} from '../../../infrastructure/auth';
 import HeroCard from '../../../components/cards/HeroCard';
+import SafeScrollWithInputPage from '../../../components/page/SafeScrollWithInput';
 
 const SignUpScreen = () => {
   const {t} = useTranslation();
@@ -28,7 +29,7 @@ const SignUpScreen = () => {
     }
   }, [email, password]);
   return (
-    <>
+    <SafeScrollWithInputPage>
       <HeroCard svgImage={SubscriberSvg} />
       <Card style={guestStyle.signInFormContainer}>
         <Card.Content>
@@ -55,7 +56,7 @@ const SignUpScreen = () => {
           </Button>
         </Card.Content>
       </Card>
-    </>
+    </SafeScrollWithInputPage>
   );
 };
 

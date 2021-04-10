@@ -3,6 +3,7 @@ import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Button, Card, TextInput} from 'react-native-paper';
 import HeroCard from '../../../components/cards/HeroCard';
+import SafeScrollWithInputPage from '../../../components/page/SafeScrollWithInput';
 import {signInAnonymously, signInEmail} from '../../../infrastructure/auth';
 import SignInSvg from '../../../styles/undraw/sign_in.svg';
 import {GuestRouteName} from '../../types';
@@ -40,7 +41,7 @@ const SignInScreen = () => {
     }
   }, [email, password]);
   return (
-    <>
+    <SafeScrollWithInputPage>
       <HeroCard svgImage={SignInSvg} />
       <Card style={guestStyle.signInFormContainer}>
         <Card.Content>
@@ -73,7 +74,7 @@ const SignInScreen = () => {
           {t('signup')}
         </Button>
       </Card>
-    </>
+    </SafeScrollWithInputPage>
   );
 };
 
