@@ -1,6 +1,5 @@
-import {resources} from './i18n/config';
+import {DefaultResources} from './i18n/types';
 
 declare module 'react-i18next' {
-  type DefaultResources = typeof resources['en'];
   interface Resources extends DefaultResources {}
 }

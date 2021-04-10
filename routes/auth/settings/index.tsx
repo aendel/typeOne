@@ -3,11 +3,12 @@ import {useTranslation} from 'react-i18next';
 import {List} from 'react-native-paper';
 import {PreferencesContext} from '../../../components/contexts/preferencesContext';
 import ViewPage from '../../../components/page/ViewPage';
+import {AvailableResources} from '../../../i18n/types';
 import {AuthRouteName} from '../../types';
 
 const SettingScreen = () => {
   const {t, i18n} = useTranslation();
-  const changeLanguage = (lng: string) => {
+  const changeLanguage = (lng: AvailableResources) => {
     i18n.changeLanguage(lng);
   };
   const {toggleTheme} = React.useContext(PreferencesContext);
