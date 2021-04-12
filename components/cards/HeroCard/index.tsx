@@ -1,4 +1,5 @@
 import React from 'react';
+import {View} from 'react-native';
 import {Card} from 'react-native-paper';
 import {SvgProps} from 'react-native-svg';
 import {guestStyle} from '../../../routes/guest/style';
@@ -19,9 +20,11 @@ const svgProps: React.PropsWithChildren<SvgProps> = {
 const HeroCard: React.FC<IHeroCardProps> = (props) => {
   const {svgImage} = props;
   return (
-    <Card style={guestStyle.heroImageContainer}>
-      <Card.Content>{svgImage(svgProps)}</Card.Content>
-    </Card>
+    <View style={guestStyle.heroImageContainer}>
+      <Card style={guestStyle.heroImage}>
+        <Card.Content>{svgImage(svgProps)}</Card.Content>
+      </Card>
+    </View>
   );
 };
 

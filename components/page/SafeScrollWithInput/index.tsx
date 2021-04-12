@@ -8,19 +8,19 @@ import {
   Platform,
 } from 'react-native';
 
-const SafeScrollWithInputPage = ({
-  children,
-}: {
-  children: Array<React.ReactNode>;
-}) => {
+const SafeScrollWithInputPage = ({children}: {children: React.ReactNode}) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{flex: 1}}>
+      style={{flex: 1}}
+      keyboardVerticalOffset={80}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <SafeAreaView style={{flex: 1, justifyContent: 'space-around'}}>
-          <ScrollView>{children}</ScrollView>
-        </SafeAreaView>
+        <ScrollView
+          style={{flex: 1, padding: 8}}
+          keyboardShouldPersistTaps={'always'}
+          removeClippedSubviews={false}>
+          {children}
+        </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );

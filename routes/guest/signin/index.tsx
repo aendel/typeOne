@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
+import {ScrollView, View} from 'react-native';
 import {Button, Card, TextInput} from 'react-native-paper';
 import HeroCard from '../../../components/cards/HeroCard';
 import SafeScrollWithInputPage from '../../../components/page/SafeScrollWithInput';
@@ -42,38 +43,44 @@ const SignInScreen = () => {
   }, [email, password]);
   return (
     <SafeScrollWithInputPage>
-      <HeroCard svgImage={SignInSvg} />
-      <Card style={guestStyle.signFormContainer}>
-        <Card.Content>
-          <TextInput
-            style={guestStyle.signFormInput}
-            label="Email"
-            placeholder="email"
-            onChangeText={setEmail}
-            value={email}
-          />
-          <TextInput
-            style={guestStyle.signFormInput}
-            label="Password"
-            placeholder="password"
-            onChangeText={setPassword}
-            value={password}
-            secureTextEntry={true}
-          />
-          <Button
-            style={guestStyle.signFormInput}
-            onPress={onPressSignInEmail}
-            mode="contained">
-            {t('signin')}
+      <View style={{flex: 1}}>
+        <HeroCard svgImage={SignInSvg} />
+      </View>
+      <View style={{flex: 1}}>
+        <Card style={guestStyle.signFormContainer}>
+          <Card.Content>
+            <TextInput
+              style={guestStyle.signFormInput}
+              label="Email"
+              placeholder="email"
+              onChangeText={setEmail}
+              value={email}
+            />
+            <TextInput
+              style={guestStyle.signFormInput}
+              label="Password"
+              placeholder="password"
+              onChangeText={setPassword}
+              value={password}
+              secureTextEntry={true}
+            />
+            <Button
+              style={guestStyle.signFormInput}
+              onPress={onPressSignInEmail}
+              mode="contained">
+              {t('signin')}
+            </Button>
+          </Card.Content>
+        </Card>
+      </View>
+      <View style={{flex: 1}}>
+        <Card style={guestStyle.signFormContainer}>
+          <Button onPress={onPressSignInAnonymously}>Anonymous log in</Button>
+          <Button onPress={() => navigation.navigate(GuestRouteName.SIGN_UP)}>
+            {t('signup')}
           </Button>
-        </Card.Content>
-      </Card>
-      <Card style={guestStyle.signFormContainer}>
-        <Button onPress={onPressSignInAnonymously}>Anonymous log in</Button>
-        <Button onPress={() => navigation.navigate(GuestRouteName.SIGN_UP)}>
-          {t('signup')}
-        </Button>
-      </Card>
+        </Card>
+      </View>
     </SafeScrollWithInputPage>
   );
 };
