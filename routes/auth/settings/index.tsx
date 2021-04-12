@@ -14,10 +14,10 @@ const SettingScreen = () => {
   const {toggleTheme} = React.useContext(PreferencesContext);
   return (
     <ViewPage title={t(AuthRouteName.SETTINGS)}>
-      <List.Section>
-        <List.Subheader>{t('theme')}</List.Subheader>
+      <List.Section title={t('theme')}>
         <List.Item onPress={toggleTheme} title={t('darkTheme')} />
-        <List.Subheader>{t('languages')}</List.Subheader>
+      </List.Section>
+      <List.Section title={t('languages')}>
         <List.Item onPress={() => changeLanguage('en')} title="EN" />
         <List.Item onPress={() => changeLanguage('it')} title="IT" />
       </List.Section>
