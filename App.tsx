@@ -8,12 +8,13 @@ import AuthStackNavigator from './components/navigations/auth/AuthStackNavigator
 import GuestStackNavigator from './components/navigations/guest/GuestStackNavigator';
 import './i18n/config';
 import {CombinedDarkTheme, CombinedDefaultTheme} from './styles/theme';
+import {useColorScheme} from 'react-native';
 
 const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
-
-  const [isThemeDark, setIsThemeDark] = useState(false);
+  const colorScheme = useColorScheme();
+  const [isThemeDark, setIsThemeDark] = useState(colorScheme === 'dark');
 
   const myTheme = isThemeDark ? CombinedDarkTheme : CombinedDefaultTheme;
 
