@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {DEFAULT_BORDER_END_RADIUS} from '../../../styles/constants';
+import {DEFAULT_BORDER_END_RADIUS} from '../../styles/constants';
 
 export const guestStyle = StyleSheet.create({
   heroImageContainer: {

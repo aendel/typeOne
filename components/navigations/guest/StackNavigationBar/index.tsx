@@ -1,8 +1,8 @@
 import {StackHeaderProps} from '@react-navigation/stack';
 import React from 'react';
 import {Appbar} from 'react-native-paper';
-import {APP_NAME} from '../../../styles/constants';
-import {PreferencesContext} from '../../contexts/preferencesContext';
+import {APP_NAME} from '../../../../styles/constants';
+import {PreferencesContext} from '../../../contexts/PreferencesContext';
 
 const StackNavigationBar = (props: StackHeaderProps) => {
   const {navigation, previous} = props;

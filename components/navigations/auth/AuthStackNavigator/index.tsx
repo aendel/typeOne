@@ -1,9 +1,9 @@
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import GlucoseFormPage from '../../../routes/auth/glucose';
-import {AuthRouteName} from '../../../routes/types';
-import StackNavigationBar from '../guest/stackNavigationBar';
-import AuthBottomTabNavigator from './bottomTabNavigator';
+import GlucoseFormPage from '../../../../routes/auth/glucose';
+import {AuthRouteName} from '../../../../routes/types';
+import StackNavigationBar from '../../guest/StackNavigationBar';
+import AuthBottomTabNavigator from '../AuthBottomTabNavigator';
 
 const Stack = createStackNavigator<any>();
 

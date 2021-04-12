@@ -1,11 +1,11 @@
 import React from 'react';
 import {Card} from 'react-native-paper';
 import {SvgProps} from 'react-native-svg';
-import {guestStyle} from '../../routes/guest/styles/style';
+import {guestStyle} from '../../../routes/guest/style';
 import {
   DEFAULT_UNDRAW_HEIGHT,
   DEFAULT_UNDRAW_WIDTH,
-} from '../../styles/constants';
+} from '../../../styles/constants';
 
 interface IHeroCardProps {
   svgImage: React.FC<SvgProps>;

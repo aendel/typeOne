@@ -2,8 +2,8 @@ import {useNavigation} from '@react-navigation/core';
 import React, {useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {FAB, Portal} from 'react-native-paper';
-import {AuthRouteName} from '../../routes/types';
-import {PreferencesContext} from '../contexts/preferencesContext';
+import {AuthRouteName} from '../../../routes/types';
+import {PreferencesContext} from '../../contexts/PreferencesContext';
 import {fabsStyles} from './styles';
 
 const GlucoseAddFab = () => {

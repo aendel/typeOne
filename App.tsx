@@ -1,20 +1,11 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
 import 'react-native-gesture-handler';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {Suspense, useEffect, useState} from 'react';
 import {ActivityIndicator, Provider as PaperProvider} from 'react-native-paper';
-import {PreferencesContext} from './components/contexts/preferencesContext';
-import AuthStackNavigator from './components/navigations/auth/authStackNavigator';
-import GuestStackNavigator from './components/navigations/guest/stackNavigator';
+import {PreferencesContext} from './components/contexts/PreferencesContext';
+import AuthStackNavigator from './components/navigations/auth/AuthStackNavigator';
+import GuestStackNavigator from './components/navigations/guest/GuestStackNavigator';
 import './i18n/config';
 import {CombinedDarkTheme, CombinedDefaultTheme} from './styles/theme';
 
@@ -51,17 +42,15 @@ const App = () => {
   if (initializing) return null;
 
   return (
-    <>
-      <Suspense fallback={<ActivityIndicator animating={true} />}>
-        <PreferencesContext.Provider value={preferences}>
-          <PaperProvider theme={myTheme}>
-            <NavigationContainer theme={myTheme}>
-              {user ? <AuthStackNavigator /> : <GuestStackNavigator />}
-            </NavigationContainer>
-          </PaperProvider>
-        </PreferencesContext.Provider>
-      </Suspense>
-    </>
+    <Suspense fallback={<ActivityIndicator animating={true} />}>
+      <PreferencesContext.Provider value={preferences}>
+        <PaperProvider theme={myTheme}>
+          <NavigationContainer theme={myTheme}>
+            {user ? <AuthStackNavigator /> : <GuestStackNavigator />}
+          </NavigationContainer>
+        </PaperProvider>
+      </PreferencesContext.Provider>
+    </Suspense>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {TextInput, Button, Card} from 'react-native-paper';
-import {guestStyle} from '../styles/style';
+import {guestStyle} from '../style';
 import SubscriberSvg from '../../../styles/undraw/subscriber.svg';
 import {createUser} from '../../../infrastructure/auth';
 import HeroCard from '../../../components/cards/HeroCard';

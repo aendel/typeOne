@@ -1,8 +1,7 @@
 import React from 'react';
-import {View} from 'react-native';
+import {StatusBar, View} from 'react-native';
 import {Title} from 'react-native-paper';
 import {ViewPageStyle} from '../../styles/theme';
-import GlucoseAddFab from '../fabs/glucoseFab';
 
 interface IViewPageProps {
   children?: React.ReactNode;
@@ -15,6 +14,7 @@ const ViewPage: React.FC<IViewPageProps> = (props) => {
       <View style={ViewPageStyle.body}>
         <Title>{props.title}</Title>
         {props.children}
+        <StatusBar />
       </View>
     </>
   );

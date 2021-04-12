@@ -7,7 +7,7 @@ import SafeScrollWithInputPage from '../../../components/page/SafeScrollWithInpu
 import {signInAnonymously, signInEmail} from '../../../infrastructure/auth';
 import SignInSvg from '../../../styles/undraw/sign_in.svg';
 import {GuestRouteName} from '../../types';
-import {guestStyle} from '../styles/style';
+import {guestStyle} from '../style';
 const SignInScreen = () => {
   const {t} = useTranslation();
   const navigation = useNavigation();

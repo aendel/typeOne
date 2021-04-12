@@ -4,6 +4,8 @@ import {
   Keyboard,
   SafeAreaView,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 
 const SafeScrollWithInputPage = ({
@@ -12,11 +14,15 @@ const SafeScrollWithInputPage = ({
   children: Array<React.ReactNode>;
 }) => {
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={{flex: 1}}>
-        <ScrollView>{children}</ScrollView>
-      </SafeAreaView>
-    </TouchableWithoutFeedback>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{flex: 1}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <SafeAreaView style={{flex: 1, justifyContent: 'space-around'}}>
+          <ScrollView>{children}</ScrollView>
+        </SafeAreaView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
