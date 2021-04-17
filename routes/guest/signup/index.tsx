@@ -1,30 +1,42 @@
 import React, {useCallback, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {TextInput, Button, Card} from 'react-native-paper';
+import {TextInput, Button, Card, HelperText} from 'react-native-paper';
 import {guestStyle} from '../style';
 import SubscriberSvg from '../../../styles/undraw/subscriber.svg';
 import {createUser} from '../../../infrastructure/auth';
 import HeroCard from '../../../components/cards/HeroCard';
 import SafeScrollWithInputPage from '../../../components/page/SafeScrollWithInput';
+import {addNewUserToUsers} from '../../../infrastructure/firestore';
+
+enum errorTypeMap {
+  'auth/email-already-in-use' = 'That email address is already in use!',
+  'auth/invalid-email' = 'That email address is invalid!',
+  'auth/weak-password' = 'That password is week',
+}
+
+type errorType = keyof typeof errorTypeMap;
+
+interface ISignUpError {
+  hasError: boolean;
+  errorText: errorTypeMap;
+}
 
 const SignUpScreen = () => {
   const {t} = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const [error, setError] = useState<ISignUpError>({} as ISignUpError);
   const onPressCreateUser = useCallback(async () => {
     try {
-      await createUser(email, password);
+      const newUser = await createUser(email, password);
       console.log('created user');
+      await addNewUserToUsers(newUser);
     } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        console.log('That email address is already in use!');
-      }
-
-      if (error.code === 'auth/invalid-email') {
-        console.log('That email address is invalid!');
-      }
-
+      const errorCode = error.code as errorType;
+      setError({
+        hasError: true,
+        errorText: errorTypeMap[errorCode] ?? 'Generic error',
+      });
       console.error(error);
     }
   }, [email, password]);
@@ -33,6 +45,9 @@ const SignUpScreen = () => {
       <HeroCard svgImage={SubscriberSvg} />
       <Card style={guestStyle.signFormContainer}>
         <Card.Content>
+          <HelperText type="error" visible={error.hasError}>
+            {error.errorText}
+          </HelperText>
           <TextInput
             style={guestStyle.signFormInput}
             label="Email"
